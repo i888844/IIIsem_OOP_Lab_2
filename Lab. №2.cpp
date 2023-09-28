@@ -100,15 +100,19 @@ public:
         {
             cout << "Поместить человека на дорожку нельзя." << endl;
         }
-        else if ((age >= 6 && age <= 80) && (get_people_amount() < get_max_people_amount()) /* && номер дорожки первый или последний*/)
+        else if ((age <= 6 && age >= 80) && (get_people_amount() < get_max_people_amount()) /* && номер дорожки первый или последний*/)
         {
             set_people_amount(get_people_amount() + 1);
             cout << "Человек возраста " << age << " помещён на дорожку №" << get_track_number() << endl;
         }
-        else if ((get_people_amount() < get_max_people_amount()) /* && номер дорожки первый или последний*/)
+        else if ((age >= 6 && age <= 80) && get_people_amount() < get_max_people_amount())
         {
             set_people_amount(get_people_amount() + 1);
             cout << "Человек возраста " << age << " помещён на дорожку " << get_track_number() << endl;
+        }
+        else
+        {
+            cout << "Поместить человека на дорожку нельзя." << endl;
         }
     }
     void remove_human_by_age(int age)
