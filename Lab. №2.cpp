@@ -94,7 +94,7 @@ public:
         cout << "Количество людей на дорожке: " << people_amount << endl;
         cout << "Максимальное количество людей на дорожке: " << max_people_amount << endl;
     }
-    void let_human(int age)
+    void let_human_by_age(int age)
     {
         if (age <= 0)
         {
@@ -110,6 +110,10 @@ public:
             set_people_amount(get_people_amount() + 1);
             cout << "Человек возраста " << age << " помещён на дорожку " << get_track_number() << endl;
         }
+    }
+    void remove_human_by_age(int age)
+    {
+        // TODO
     }
 };
 
@@ -194,7 +198,7 @@ public:
     }
     int get_swimming_pool_number() { return swimming_pool_number; }
     int get_tracks_amount() { return tracks_amount; }
-    double get_max_depht() { return max_depth; }
+    double get_max_depth() { return max_depth; }
     double get_lenght() { return lenght; }
     void set_swimming_pool_number(int _settable_swimming_pool_number)
     {
@@ -260,8 +264,63 @@ class sport_complex
 {
 private:
     string name_sport_complex;
-    int swimmings_amount;
+    int swimming_pools_amount;
     swimming_pool** swimming_pools;
+public:
+    sport_complex()
+    {
+        name_sport_complex = "не определено";
+        swimming_pools_amount = 1;
+        swimming_pools = new swimming_pool* [swimming_pools_amount];
+    }
+    sport_complex(string _name_sport_complex, int _swimming_pools_amount)
+    {
+        name_sport_complex = _name_sport_complex;
+        if (_swimming_pools_amount >= 1)
+        {
+            swimming_pools_amount = _swimming_pools_amount;
+        }
+        else
+        {
+            swimming_pools_amount = 1;
+        }
+        swimming_pools = new swimming_pool* [swimming_pools_amount];
+    }
+    sport_complex(sport_complex &object)
+    {
+        name_sport_complex = object.name_sport_complex;
+        swimming_pools_amount = object.swimming_pools_amount;
+        swimming_pools = new swimming_pool* [swimming_pools_amount];
+        for (int i = 0; i < swimming_pools_amount; i++)
+        {
+            swimming_pools[i] = new swimming_pool(object.swimming_pools[i]->get_swimming_pool_number(), object.swimming_pools[i]->get_tracks_amount(), object.swimming_pools[i]->get_max_depth(), object.swimming_pools[i]->get_lenght());
+        }
+    }
+    ~sport_complex()
+    {
+        for (int i = 0; i < swimming_pools_amount; i++)
+        {
+            delete swimming_pools[i];
+        }
+        delete[]swimming_pools;
+    }
+    string get_name_sport_complex() { return name_sport_complex; }
+    int get_swimming_pools_amount() { return swimming_pools_amount; }
+    void set_name_sport_complex(string _settable_name_sport_complex)
+    {
+        name_sport_complex = _settable_name_sport_complex;
+    }
+    void set_swimming_pools_amount(int _settable_swimming_pools_amount)
+    {
+        if (_settable_swimming_pools_amount >= 1)
+        {
+            swimming_pools_amount = _settable_swimming_pools_amount;
+        }
+        else
+        {
+            swimming_pools_amount = 1;
+        }
+    }
 };
 
 int main()
