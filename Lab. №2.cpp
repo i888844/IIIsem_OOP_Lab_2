@@ -425,14 +425,119 @@ int main()
                     }
                     case 1:
                     {
+                        cout << "Спортивный комплекс:" << endl;
+                        cout << "1. Конструктор по умолчанию" << endl;
+                        cout << "2. Конструктор с параметрами" << endl;
+                        cout << "3. Конструктор копии" << endl;
+                        cout << "0. Вернуться назад" << endl;
+                        cout << "Номер действия: " << endl;
+                        cin >> cmd;
+                        while (cmd < 0 || cmd > 3)
+                        {
+                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                            cin >> cmd;
+                        }
+                        switch (cmd)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                break;
+                            }
+                            case 2:
+                            {
+                                break;
+                            }
+                            case 3:
+                            {
+                                break;
+                            }
+                            case 4:
+                            {
+                                break;
+                            }
+                        }
                         break;
                     }
                     case 2:
                     {
+                        cout << "Бассейн:" << endl;
+                        cout << "1. Конструктор по умолчанию" << endl;
+                        cout << "2. Конструктор с параметрами" << endl;
+                        cout << "3. Конструктор копии" << endl;
+                        cout << "0. Вернуться назад" << endl;
+                        cout << "Номер действия: " << endl;
+                        cin >> cmd;
+                        while (cmd < 0 || cmd > 3)
+                        {
+                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                            cin >> cmd;
+                        }
+                        switch (cmd)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                break;
+                            }
+                            case 2:
+                            {
+                                break;
+                            }
+                            case 3:
+                            {
+                                break;
+                            }
+                            case 4:
+                            {
+                                break;
+                            }
+                        }
                         break;
                     }
                     case 3:
                     {
+                        cout << "Дорожка:" << endl;
+                        cout << "1. Конструктор по умолчанию" << endl;
+                        cout << "2. Конструктор с параметрами" << endl;
+                        cout << "3. Конструктор копии" << endl;
+                        cout << "0. Вернуться назад" << endl;
+                        cout << "Номер действия: " << endl;
+                        cin >> cmd;
+                        while (cmd < 0 || cmd > 3)
+                        {
+                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                            cin >> cmd;
+                        }
+                        switch (cmd)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                break;
+                            }
+                            case 2:
+                            {
+                                break;
+                            }
+                            case 3:
+                            {
+                                break;
+                            }
+                            case 4:
+                            {
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
