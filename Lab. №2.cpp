@@ -20,7 +20,7 @@ public:
     }
     track(int _track_number, int _people_amount, int _max_people_amount)
     {
-        if (track_number >= 0)
+        if (_track_number >= 0)
         {
             track_number = _track_number;
         }
@@ -100,7 +100,7 @@ public:
         {
             cout << "Поместить человека на дорожку нельзя." << endl;
         }
-        else if ((age <= 6 && age >= 80) && (get_people_amount() < get_max_people_amount()) /* && номер дорожки первый или последний*/)
+        else if ((age <= 6 || age >= 80) && (get_people_amount() < get_max_people_amount()) /* && номер дорожки первый или последний*/)
         {
             set_people_amount(get_people_amount() + 1);
             cout << "Человек возраста " << age << " помещён на дорожку №" << get_track_number() << endl;
