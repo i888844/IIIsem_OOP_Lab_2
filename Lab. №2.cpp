@@ -115,6 +115,7 @@ public:
     {
         // TODO
     }
+    // TODO void remove_all_humans_from_track() { }
 };
 
 class swimming_pool
@@ -258,6 +259,7 @@ public:
             }
         }
     }
+    // TODO void remove_all_humans_from_swimming_pool() { }
 };
 
 class sport_complex
@@ -321,6 +323,16 @@ public:
             swimming_pools_amount = 1;
         }
     }
+    void output_sport_complex()
+    {
+        cout << "Спортивный комплекс \"" << name_sport_complex << "\"" << endl;
+        cout << "Количество бассейнов: " << swimming_pools_amount << endl;
+        for (int i = 0; i < swimming_pools_amount; i++)
+        {
+            swimming_pools[i]->output_swimming_pool();
+        }
+    }
+    // TODO void remove_all_humans_from_sport_complex() { }
 };
 
 int main()
@@ -328,7 +340,114 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-
+    int i = 0, cmd = 0;
+    do
+    {
+        cout << "Выберите действие:" << endl;
+        cout << "1. Вывести на экран" << endl;
+        cout << ">>> 1. Спортивный комплекс" << endl;
+        cout << ">>> 2. Бассейн" << endl;
+        cout << ">>> 3. Дорожку" << endl;
+        cout << "2. Создать" << endl;
+        cout << ">>> 1. Спортивный комплекс" << endl;
+        cout << ">>> 2. Бассейн" << endl;
+        cout << ">>> 3. Дорожку" << endl;
+        cout << "3. Поместить человека на дорожку" << endl;
+        cout << "4. Убрать человека с дорожки" << endl;
+        cout << "0. Завершить работу программы" << endl;
+        cout << "Номер действия: " << endl;
+        cin >> cmd;
+        while (cmd < 0 || cmd > 4)
+        {
+            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+            cin >> cmd;
+        }
+        switch (cmd)
+        {
+            case 0:
+            {
+                break;
+            }
+            case 1:
+            {
+                cout << "Вывести на экран:" << endl;
+                cout << "1. Спортивный комплекс" << endl;
+                cout << "2. Бассейн" << endl;
+                cout << "3. Дорожку" << endl;
+                cout << "0. Вернуться назад" << endl;
+                cout << "Номер действия: " << endl;
+                cin >> cmd;
+                while (cmd < 0 || cmd > 3)
+                {
+                    cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                    cin >> cmd;
+                }
+                switch (cmd)
+                {
+                    case 0:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        break;
+                    }
+                    case 2:
+                    {
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                }
+                break;
+            }
+            case 2:
+            {
+                cout << "Вывести на экран:" << endl;
+                cout << "1. Спортивный комплекс" << endl;
+                cout << "2. Бассейн" << endl;
+                cout << "3. Дорожку" << endl;
+                cout << "0. Вернуться назад" << endl;
+                cout << "Номер действия: " << endl;
+                cin >> cmd;
+                while (cmd < 0 || cmd > 3)
+                {
+                    cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                    cin >> cmd;
+                }
+                switch (cmd)
+                {
+                    case 0:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        break;
+                    }
+                    case 2:
+                    {
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3:
+            {
+                break;
+            }
+            case 4:
+            {
+                break;
+            }
+        }
+    } while (cmd != 0);
 
     return 0;
 }
