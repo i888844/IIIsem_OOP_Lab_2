@@ -120,7 +120,7 @@ public:
         bool method_result = false;
         if ((_index_human_age - 1) >= 0 && _index_human_age < get_people_amount())
         {
-            for (int i = 0; i < get_people_amount() - 1; i++)
+            for (int i = _index_human_age; i < get_people_amount() - 1; i++)
             {
                 peoples_ages[i] = peoples_ages[i + 1];
             }
@@ -309,8 +309,6 @@ public:
             }
         }
     }
-    //bool add_track() { }
-    //bool remove_track() { }
     bool let_human_on_track(int _track_number, int _human_age)
     {
         bool method_result = false;
@@ -383,8 +381,37 @@ public:
         }
         return (method_result);
     }
-    //bool increment_tracks_amount() { }
-    //bool decrement_tracks_amount() { }
+    bool add_track()
+    {
+        bool method_result = false;
+        if (get_tracks_amount() < get_max_tracks_amount())
+        {
+            tracks[get_tracks_amount() + 1] = new track();
+            set_tracks_amount(get_tracks_amount() + 1);
+            method_result = true;
+        }
+        return (method_result);
+    }
+    bool remove_track(int _track_number)
+    {
+        bool method_result = false;
+        if (get_tracks_amount() > 1)
+        {
+            for (int i = 0; i < get_tracks_amount(); i++)
+            {
+                if (tracks[i]->get_track_number() == _track_number)
+                {
+                    for (int j = i; j < get_tracks_amount() - 1; i++)
+                    {
+                        tracks[i] = tracks[i + 1];
+                    }
+                    set_tracks_amount(get_tracks_amount() - 1);
+                    method_result = true;
+                }
+            }
+        }
+        return (method_result);
+    }
 };
 
 class sport_complex
