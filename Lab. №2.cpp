@@ -129,6 +129,20 @@ public:
         }
         return (method_result);
     }
+    bool remove_all_humans_age()
+    {
+        bool method_result = false;
+        if (get_people_amount() > 0)
+        {
+            for (int i = 0; i < get_people_amount(); i++)
+            {
+                peoples_ages[i] = 0;
+            }
+            set_people_amount(0);
+            method_result = true;
+        }
+        return (method_result);
+    }
 };
 
 class swimming_pool
@@ -295,11 +309,13 @@ public:
             }
         }
     }
+    //bool add_track() { }
+    //bool remove_track() { }
     bool let_human_on_track(int _track_number, int _human_age)
     {
         bool method_result = false;
-        int i = 0, current_index_track = 0, number_last_track = tracks[get_tracks_amount()]->get_track_number();
-        for (i = 0; i < get_tracks_amount(); i++)
+        int current_index_track = 0, number_last_track = tracks[get_tracks_amount()]->get_track_number();
+        for (int i = 0; i < get_tracks_amount(); i++)
         {
             if (tracks[i]->get_track_number() == _track_number)
             {
@@ -310,22 +326,63 @@ public:
         if ((_human_age <= 6 || _human_age >= 80) && (tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount()) && (_track_number == number_last_track || _track_number == 1))
         {
             tracks[current_index_track]->set_people_amount(tracks[current_index_track]->get_people_amount() + 1);
-            // добавить возраст человека в массив возрастов
+            tracks[current_index_track]->add_human_age(_human_age);
             method_result = true;
         }
         else if ((_human_age > 6 && _human_age < 80) && tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount())
         {
             tracks[current_index_track]->set_people_amount(tracks[current_index_track]->get_people_amount() + 1);
-            // добавить возраст человека в массив возрастов
+            tracks[current_index_track]->add_human_age(_human_age);
             method_result = true;
         }
         return (method_result);
     }
-    //bool add_track() { }
-    //bool remove_track() { }
-    //bool remove_human_from_track(int age) { }
-    //bool remove_all_humans_from_track() { }
-    //bool remove_all_humans_from_swimming_pool() { }
+    bool remove_human_from_track(int _track_number, int _index_human)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_tracks_amount(); i++)
+        {
+            if (tracks[i]->get_track_number() == _track_number)
+            {
+                if (tracks[i]->remove_human_age(_index_human))
+                {
+                    method_result = true;
+                }
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_all_humans_from_track(int _track_number)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_tracks_amount(); i++)
+        {
+            if (tracks[i]->get_track_number() == _track_number)
+            {
+                for (int j = 0; j < tracks[i]->get_people_amount(); j++)
+                {
+                    tracks[i]->remove_human_age(j);
+                }
+                method_result = true;
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_all_humans_from_swimming_pool()
+    {
+        bool method_result = false;
+        if (get_tracks_amount() > 0)
+        {
+            for (int i = 0; i < get_tracks_amount(); i++)
+            {
+                tracks[i]->remove_all_humans_age();
+            }
+            method_result = true;
+        }
+        return (method_result);
+    }
     //bool increment_tracks_amount() { }
     //bool decrement_tracks_amount() { }
 };
