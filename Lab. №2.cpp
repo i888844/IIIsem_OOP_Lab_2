@@ -163,6 +163,10 @@ public:
         max_depth = 5;
         lenght = 25;
         tracks = new track* [tracks_amount];
+        for (int i = 0; i < max_tracks_amount; i++)
+        {
+            tracks[i] = new track(i + 1, 10, 0);
+        }
     }
     swimming_pool(int _swimming_pool_number, int _max_tracks_amount, int _tracks_amount, double _max_depth, double _lenght)
     {
@@ -207,6 +211,10 @@ public:
             lenght = 25;
         }
         tracks = new track* [tracks_amount];
+        for (int i = 0; i < max_tracks_amount; i++)
+        {
+            tracks[i] = new track(i + 1, 10, 0);
+        }
     }
     swimming_pool(swimming_pool &object)
     {
@@ -306,6 +314,18 @@ public:
             for (int i = 0; i < tracks_amount; i++)
             {
                 tracks[i]->output_track();
+            }
+        }
+    }
+    void output_track(int _track_number)
+    {
+        for (int i = 0; i < tracks[i]->get_track_number(); i++)
+        {
+            if (tracks[i]->get_people_amount() == _track_number)
+            {
+                cout << "Дорожка №" << tracks[i]->get_track_number() << endl;
+                cout << "Количество людей на дорожке: " << tracks[i]->get_people_amount() << endl;
+                cout << "Максимальное количество людей на дорожке: " << tracks[i]->get_max_people_amount() << endl;
             }
         }
     }
@@ -428,6 +448,10 @@ public:
         max_swimming_pools_amount = 5;
         swimming_pools_amount = 5;
         swimming_pools = new swimming_pool* [swimming_pools_amount];
+        for (int i = 0; i < max_swimming_pools_amount; i++)
+        {
+            swimming_pools[i] = new swimming_pool(i + 1, 5, 5, 5, 25);
+        }
     }
     sport_complex(string _name_sport_complex, int _max_swimming_pools_amount, int _swimming_pools_amount)
     {
@@ -449,6 +473,10 @@ public:
             swimming_pools_amount = 1;
         }
         swimming_pools = new swimming_pool* [swimming_pools_amount];
+        for (int i = 0; i < max_swimming_pools_amount; i++)
+        {
+            swimming_pools[i] = new swimming_pool(i + 1, 5, 5, 5, 25);
+        }
     }
     sport_complex(sport_complex &object)
     {
@@ -505,6 +533,38 @@ public:
         for (int i = 0; i < swimming_pools_amount; i++)
         {
             swimming_pools[i]->output_swimming_pool();
+        }
+    }
+    void output_swimming_pool(int _number_swimming_pool)
+    {
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                cout << "Бассейн №" << swimming_pools[i]->get_swimming_pool_number() << endl;
+                cout << "Количество дорожек: " << swimming_pools[i]->get_tracks_amount() << endl;
+                cout << "Максимальная глубина: " << swimming_pools[i]->get_max_depth() << endl;
+                cout << "Длина: " << swimming_pools[i]->get_lenght() << endl;
+                if (swimming_pools[i]->get_tracks_amount() > 0)
+                {
+                    for (int j = 0; j < swimming_pools[i]->get_tracks_amount(); j++)
+                    {
+                        swimming_pools[i]->output_track(j);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    void output_track(int _number_swimming_pool, int _number_track)
+    {
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                swimming_pools[i]->output_track(_number_track);
+                break;
+            }
         }
     }
     bool let_human_on_track(int _number_swimming_pool, int _number_track, int _human_age)
@@ -581,7 +641,7 @@ public:
         {
             for (int i = 0; i < get_swimming_pools_amount(); i++)
             {
-                if (swimming_pools[i]->remove_all_humans_from_swimming_pool();)
+                if (swimming_pools[i]->remove_all_humans_from_swimming_pool())
                 {
                     method_result = true;
                 }
@@ -626,8 +686,11 @@ int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-
-    int i = 0, cmd = 0;
+    sport_complex a("Донбасс", 5, 5);
+    a.output_sport_complex();
+    int cmd = 0, int s_cmd = 0, sp_number = 0, t_number = 0, int_data = 0;
+    double double_data = 0;
+    string string_data = "";
     do
     {
         cout << "Выберите действие:" << endl;
@@ -635,16 +698,26 @@ int main()
         cout << ">>> 1. Спортивный комплекс" << endl;
         cout << ">>> 2. Бассейн" << endl;
         cout << ">>> 3. Дорожку" << endl;
-        cout << "2. Создать" << endl;
+        cout << "2. Изменить" << endl;
         cout << ">>> 1. Спортивный комплекс" << endl;
         cout << ">>> 2. Бассейн" << endl;
         cout << ">>> 3. Дорожку" << endl;
-        cout << "3. Поместить человека на дорожку" << endl;
-        cout << "4. Убрать человека с дорожки" << endl;
+        cout << "3. Создать" << endl;
+        cout << ">>> 1. Бассейн" << endl;
+        cout << ">>> 2. Дорожку" << endl;
+        cout << "4. Удалить" << endl;
+        cout << ">>> 1. Бассейн" << endl;
+        cout << ">>> 2. Дорожку" << endl;
+        cout << "5. Поместить человека на дорожку" << endl;
+        cout << "6. Убрать человека с дорожки" << endl;
+        cout << "7. Убрать всех людей" << endl;
+        cout << ">>> 1. С дорожки" << endl;
+        cout << ">>> 2. С бассейна" << endl;
+        cout << ">>> 3. С спортивного комплекса" << endl;
         cout << "0. Завершить работу программы" << endl;
         cout << "Номер действия: " << endl;
         cin >> cmd;
-        while (cmd < 0 || cmd > 4)
+        while (cmd < 0 || cmd > 7)
         {
             cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
             cin >> cmd;
@@ -657,19 +730,19 @@ int main()
             }
             case 1:
             {
-                cout << "Вывести на экран:" << endl;
+                cout << "Выбирите действие: вывести на экран:" << endl;
                 cout << "1. Спортивный комплекс" << endl;
                 cout << "2. Бассейн" << endl;
                 cout << "3. Дорожку" << endl;
-                cout << "0. Вернуться назад" << endl;
+                cout << "0. Назад" << endl;
                 cout << "Номер действия: " << endl;
-                cin >> cmd;
-                while (cmd < 0 || cmd > 3)
+                cin >> s_cmd;
+                while (s_cmd < 0 || cmd > 3)
                 {
                     cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
-                    cin >> cmd;
+                    cin >> s_cmd;
                 }
-                switch (cmd)
+                switch (s_cmd)
                 {
                     case 0:
                     {
@@ -677,14 +750,23 @@ int main()
                     }
                     case 1:
                     {
+                        a.output_sport_complex();
                         break;
                     }
                     case 2:
                     {
+                        cout << "Введите номер бассейна: " << endl;
+                        cin >> sp_number;
+                        a.output_swimming_pool(sp_number);
                         break;
                     }
                     case 3:
                     {
+                        cout << "Введите номер бассейна: " << endl;
+                        cin >> sp_number;
+                        cout << "Введите номер дорожки: " << endl;
+                        cin >> t_number;
+                        a.output_track(sp_number, t_number);
                         break;
                     }
                 }
@@ -692,19 +774,19 @@ int main()
             }
             case 2:
             {
-                cout << "Создать:" << endl;
+                cout << "Выбирите действие: изменить:" << endl;
                 cout << "1. Спортивный комплекс" << endl;
                 cout << "2. Бассейн" << endl;
                 cout << "3. Дорожку" << endl;
-                cout << "0. Вернуться назад" << endl;
+                cout << "0. Назад" << endl;
                 cout << "Номер действия: " << endl;
-                cin >> cmd;
-                while (cmd < 0 || cmd > 3)
+                cin >> s_cmd;
+                while (s_cmd < 0 || cmd > 3)
                 {
                     cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
-                    cin >> cmd;
+                    cin >> s_cmd;
                 }
-                switch (cmd)
+                switch (s_cmd)
                 {
                     case 0:
                     {
@@ -712,19 +794,18 @@ int main()
                     }
                     case 1:
                     {
-                        cout << "Спортивный комплекс:" << endl;
-                        cout << "1. Конструктор по умолчанию" << endl;
-                        cout << "2. Конструктор с параметрами" << endl;
-                        cout << "3. Конструктор копии" << endl;
-                        cout << "0. Вернуться назад" << endl;
+                        cout << "1. Изменить название спортивного комплекса" << endl;
+                        cout << "2. Изменить максимальное количество бассейнов" << endl;
+                        cout << "3. Изменить количество бассейнов" << endl;
+                        cout << "0. Назад" << endl;
                         cout << "Номер действия: " << endl;
-                        cin >> cmd;
-                        while (cmd < 0 || cmd > 3)
+                        cin >> s_cmd;
+                        while (s_cmd < 0 || cmd > 3)
                         {
                             cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
-                            cin >> cmd;
+                            cin >> s_cmd;
                         }
-                        switch (cmd)
+                        switch (s_cmd)
                         {
                             case 0:
                             {
@@ -732,18 +813,23 @@ int main()
                             }
                             case 1:
                             {
+                                cout << "Введите новое название спортивного комплекса" << endl;
+                                cin >> string_data;
+                                a.set_name_sport_complex(string_data);
                                 break;
                             }
                             case 2:
                             {
+                                cout << "Введите новое максимальное количество бассейнов спортивного комплекса" << endl;
+                                cin >> int_data;
+                                a.set_max_swimming_pools_amount(int_data);
                                 break;
                             }
                             case 3:
                             {
-                                break;
-                            }
-                            case 4:
-                            {
+                                cout << "Введите новое количество бассейнов спортивного комплекса" << endl;
+                                cin >> int_data;
+                                a.set_swimming_pools_amount(int_data);
                                 break;
                             }
                         }
@@ -751,80 +837,12 @@ int main()
                     }
                     case 2:
                     {
-                        cout << "Бассейн:" << endl;
-                        cout << "1. Конструктор по умолчанию" << endl;
-                        cout << "2. Конструктор с параметрами" << endl;
-                        cout << "3. Конструктор копии" << endl;
-                        cout << "0. Вернуться назад" << endl;
-                        cout << "Номер действия: " << endl;
-                        cin >> cmd;
-                        while (cmd < 0 || cmd > 3)
-                        {
-                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
-                            cin >> cmd;
-                        }
-                        switch (cmd)
-                        {
-                            case 0:
-                            {
-                                break;
-                            }
-                            case 1:
-                            {
-                                break;
-                            }
-                            case 2:
-                            {
-                                break;
-                            }
-                            case 3:
-                            {
-                                break;
-                            }
-                            case 4:
-                            {
-                                break;
-                            }
-                        }
+                        // !
                         break;
                     }
                     case 3:
                     {
-                        cout << "Дорожка:" << endl;
-                        cout << "1. Конструктор по умолчанию" << endl;
-                        cout << "2. Конструктор с параметрами" << endl;
-                        cout << "3. Конструктор копии" << endl;
-                        cout << "0. Вернуться назад" << endl;
-                        cout << "Номер действия: " << endl;
-                        cin >> cmd;
-                        while (cmd < 0 || cmd > 3)
-                        {
-                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
-                            cin >> cmd;
-                        }
-                        switch (cmd)
-                        {
-                            case 0:
-                            {
-                                break;
-                            }
-                            case 1:
-                            {
-                                break;
-                            }
-                            case 2:
-                            {
-                                break;
-                            }
-                            case 3:
-                            {
-                                break;
-                            }
-                            case 4:
-                            {
-                                break;
-                            }
-                        }
+                        // !
                         break;
                     }
                 }
@@ -832,14 +850,219 @@ int main()
             }
             case 3:
             {
-                break;
+                cout << "Выбирите действие: создать:" << endl;
+                cout << "1. Бассейн" << endl;
+                cout << "2. Дорожку" << endl;
+                cout << "0. Назад" << endl;
+                cout << "Номер действия: " << endl;
+                cin >> s_cmd;
+                while (s_cmd < 0 || cmd > 2)
+                {
+                    cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                    cin >> s_cmd;
+                }
+                switch (s_cmd)
+                {
+                    case 0:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        cout << "Выберите действие: создать: бассейн:" << endl;
+                        cout << "1. Конструктор по умолчанию" << endl;
+                        cout << "2. Конструктор с параметрами" << endl;
+                        cout << "3. Конструктор копии" << endl;
+                        cout << "0. Назад" << endl;
+                        cin >> s_cmd;
+                        while (s_cmd < 0 || cmd > 3)
+                        {
+                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                            cin >> s_cmd;
+                        }
+                        switch (s_cmd)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                if (a.add_swimming_pool())
+                                {
+                                    // !
+                                }
+                                else
+                                {
+                                    // !
+                                }
+                                break;
+                            }
+                            case 2:
+                            {
+                                if (a.add_swimming_pool())
+                                {
+                                    // !
+                                    
+                                    //int swimming_pool_number = 0, max_tracks_amount = 0, tracks_amount = 0;
+                                    //double max_depth = 0, lenght = 0;
+                                    //cout << "Введите номер бассейна: ";
+                                    //cin >> a.
+                                    //cout << "Введите максимальное количество дорожек: ";
+                                    //cin >> max_tracks_amount;
+                                    //cout << "Введите максимальную глубину: ";
+                                    //cin >> max_depth;
+                                    //cout << "Введите длину: ";
+                                    //cin >> lenght;
+                                }
+                            }
+                        }
+                    }
+                    case 2:
+                    {
+                        // !
+                        break;
+                    }
+                }
             }
             case 4:
             {
+                cout << "Выбирите действие: удалить:" << endl;
+                cout << "1. Бассейн" << endl;
+                cout << "2. Дорожку" << endl;
+                cout << "0. Назад" << endl;
+                cout << "Номер действия: " << endl;
+                cin >> s_cmd;
+                while (s_cmd < 0 || cmd > 2)
+                {
+                    cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                    cin >> s_cmd;
+                }
+                switch (s_cmd)
+                {
+                    case 0:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        // !
+                        break;
+                    }
+                    case 2:
+                    {
+                        // !
+                        break;
+                    }
+                }
+                break;
+            }
+            case 5:
+            {
+                int number_swimming_pool = 0, number_track = 0, human_age = 0;
+                cout << "Введите номер бассейна: ";
+                cin >> number_swimming_pool;
+                cout << "Введите номер дорожки: ";
+                cin >> number_track;
+                cout << "Введите возраст человека: ";
+                cin >> human_age;
+                if (a.let_human_on_track(number_swimming_pool, number_track, human_age))
+                {
+                    // !
+                }
+                else
+                {
+                    // !
+                }
+                break;
+            }
+            case 6:
+            {
+                int number_swimming_pool = 0, number_track = 0, human_age = 0;
+                cout << "Введите номер бассейна: ";
+                cin >> number_swimming_pool;
+                cout << "Введите номер дорожки: ";
+                cin >> number_track;
+                cout << "Введите возраст человека: ";
+                cin >> human_age;
+                if (a.remove_human_from_track(number_swimming_pool, number_track, human_age))
+                {
+                    // !
+                }
+                else
+                {
+                    // !
+                }
+                break;
+            }
+            case 7:
+            {
+                cout << "Выбирите действие: убрать всех людей:" << endl;
+                cout << "1. С дорожки" << endl;
+                cout << "2. С бассейна" << endl;
+                cout << "3. С спортивного комплекса" << endl;
+                cout << "0. Назад" << endl;
+                cout << "Номер действия: " << endl;
+                cin >> s_cmd;
+                while (s_cmd < 0 || cmd > 3)
+                {
+                    cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                    cin >> s_cmd;
+                }
+                switch (s_cmd)
+                {
+                    case 0:
+                    {
+                        break;
+                    }
+                    case 1:
+                    {
+                        int number_swimming_pool = 0, number_track = 0, human_age = 0;
+                        cout << "Введите номер бассейна: ";
+                        cin >> number_swimming_pool;
+                        cout << "Введите номер дорожки: ";
+                        cin >> number_track;
+                        if (a.remove_all_humans_from_track(number_swimming_pool, number_track))
+                        {
+                            // !
+                        }
+                        else
+                        {
+                            // !
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        int number_swimming_pool = 0;
+                        cout << "Введите номер бассейна: ";
+                        cin >> number_swimming_pool;
+                        if (a.remove_all_humans_from_swimming_pool(number_swimming_pool))
+                        {
+                            // !
+                        }
+                        else
+                        {
+                            // !
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        if (a.remove_all_humans_from_sport_complex())
+                        {
+                            // !
+                        }
+                        else
+                        {
+                            // !
+                        }
+                        break;
+                    }
+                }
                 break;
             }
         }
     } while (cmd != 0);
-
     return 0;
 }
