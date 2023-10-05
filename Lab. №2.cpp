@@ -401,9 +401,9 @@ public:
             {
                 if (tracks[i]->get_track_number() == _track_number)
                 {
-                    for (int j = i; j < get_tracks_amount() - 1; i++)
+                    for (int j = i; j < get_tracks_amount() - 1; j++)
                     {
-                        tracks[i] = tracks[i + 1];
+                        tracks[j] = tracks[j + 1];
                     }
                     set_tracks_amount(get_tracks_amount() - 1);
                     method_result = true;
@@ -507,13 +507,119 @@ public:
             swimming_pools[i]->output_swimming_pool();
         }
     }
-    //bool add_swimming_pool() { }
-    //bool remove_swimming_pool() { }
-    //bool let_human_on_track() { }
-    //bool remove_human_from_track() { }
-    //bool remove_all_humans_from_track() { }
-    //bool remove_all_humans_from_swimming_pool() { }
-    //bool remove_all_humans_from_sport_complex() { }
+    bool let_human_on_track(int _number_swimming_pool, int _number_track, int _human_age)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                if (swimming_pools[i]->let_human_on_track(_number_track, _human_age))
+                {
+                    method_result = true;
+                }
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_human_from_track(int _number_swimming_pool, int _number_track, int _index_human)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                if (swimming_pools[i]->remove_human_from_track(_number_track, _index_human))
+                {
+                    method_result = true;
+                }
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_all_humans_from_track(int _number_swimming_pool, int _number_track)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                for (int j = 0; j < swimming_pools[i]->get_tracks_amount(); j++)
+                {
+                    if (swimming_pools[i]->remove_all_humans_from_track(_number_track))
+                    {
+                        method_result = true;
+                    }
+                }
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_all_humans_from_swimming_pool(int _number_swimming_pool)
+    {
+        bool method_result = false;
+        for (int i = 0; i < get_swimming_pools_amount(); i++)
+        {
+            if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
+            {
+                if (swimming_pools[i]->remove_all_humans_from_swimming_pool())
+                {
+                    method_result = true;
+                }
+                break;
+            }
+        }
+        return (method_result);
+    }
+    bool remove_all_humans_from_sport_complex()
+    {
+        bool method_result = false;
+        if (get_swimming_pools_amount() > 0)
+        {
+            for (int i = 0; i < get_swimming_pools_amount(); i++)
+            {
+                if (swimming_pools[i]->remove_all_humans_from_swimming_pool();)
+                {
+                    method_result = true;
+                }
+            }
+        }
+        return (method_result);
+    }
+    bool add_swimming_pool()
+    {
+        bool method_result = false;
+        if (get_swimming_pools_amount() < get_max_swimming_pools_amount())
+        {
+            swimming_pools[get_swimming_pools_amount() + 1] = new swimming_pool();
+            set_swimming_pools_amount(get_swimming_pools_amount() + 1);
+            method_result = true;
+        }
+        return (method_result);
+    }
+    bool remove_swimming_pool(int _swimming_pool_number)
+    {
+        bool method_result = false;
+        if (get_swimming_pools_amount() > 1)
+        {
+            for (int i = 0; i < get_swimming_pools_amount(); i++)
+            {
+                if (swimming_pools[i]->get_swimming_pool_number() == _swimming_pool_number)
+                {
+                    for (int j = i; j < get_swimming_pools_amount() - 1; j++)
+                    {
+                        swimming_pools[j] = swimming_pools[j + 1];
+                    }
+                    set_swimming_pools_amount(get_swimming_pools_amount() - 1);
+                    method_result = true;
+                }
+            }
+        }
+        return (method_result);
+    }
 };
 
 int main()
