@@ -49,6 +49,14 @@ public:
         {
             people_amount = 0;
         }
+        if (max_people_amount > 0)
+        {
+            peoples_ages = new int[max_people_amount];
+            for (int i = 0; i < max_people_amount; i++)
+            {
+                peoples_ages[i] = 0;
+            }
+        }
     }
     track(track& object)
     {
@@ -231,9 +239,9 @@ public:
         tracks_amount = object.tracks_amount;
         max_depth = object.max_depth;
         lenght = object.lenght;
-        tracks = new track* [tracks_amount];
         if (tracks_amount > 0)
         {
+            tracks = new track * [tracks_amount];
             for (int i = 0; i < tracks_amount; i++)
             {
                 tracks[i] = new track(object.tracks[i]->get_track_number(), object.tracks[i]->get_people_amount(), object.tracks[i]->get_max_people_amount());
@@ -1140,7 +1148,7 @@ int main()
                 cout << "0. Назад" << endl;
                 cout << "Номер действия: " << endl;
                 cin >> s_cmd;
-                while (s_cmd < 0 || cmd > 2)
+                while (s_cmd < 0 && cmd > 2)
                 {
                     cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
                     cin >> s_cmd;
@@ -1334,7 +1342,7 @@ int main()
                 cout << "0. Назад" << endl;
                 cout << "Номер действия: " << endl;
                 cin >> s_cmd;
-                while (s_cmd < 0 || cmd > 2)
+                while (s_cmd < 0 && cmd > 2)
                 {
                     cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
                     cin >> s_cmd;
@@ -1429,7 +1437,7 @@ int main()
                 cout << "0. Назад" << endl;
                 cout << "Номер действия: " << endl;
                 cin >> s_cmd;
-                while (s_cmd < 0 || cmd > 3)
+                while (s_cmd < 0 && cmd > 3)
                 {
                     cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
                     cin >> s_cmd;
