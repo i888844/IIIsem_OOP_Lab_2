@@ -49,13 +49,10 @@ public:
         {
             people_amount = 0;
         }
-        if (max_people_amount > 0)
+        peoples_ages = new int[max_people_amount];
+        for (int i = 0; i < people_amount; i++)
         {
-            peoples_ages = new int[max_people_amount];
-            for (int i = 0; i < max_people_amount; i++)
-            {
-                peoples_ages[i] = 0;
-            }
+            peoples_ages[i] = 0;
         }
     }
     track(track& object)
@@ -63,7 +60,11 @@ public:
         track_number = object.track_number;
         people_amount = object.people_amount;
         max_people_amount = object.max_people_amount;
-        peoples_ages = object.peoples_ages;
+        peoples_ages = new int[max_people_amount];
+        for (int i = 0; i < people_amount; i++)
+        {
+            peoples_ages[i] = object.peoples_ages[i];
+        }
     }
     ~track()
     {
@@ -72,7 +73,7 @@ public:
     int get_track_number() { return track_number; }
     int get_max_people_amount() { return max_people_amount; }
     int get_people_amount() { return people_amount; }
-    int get_peoples_ages() { return *peoples_ages; }
+    int* get_peoples_ages() { return peoples_ages; }
     void set_track_number(int _settable_track_number)
     {
         if (_settable_track_number <= 0)
@@ -178,8 +179,8 @@ public:
         tracks_amount = 5;
         max_depth = 5;
         lenght = 25;
-        tracks = new track* [tracks_amount];
-        for (int i = 0; i < max_tracks_amount; i++)
+        tracks = new track * [max_tracks_amount];
+        for (int i = 0; i < tracks_amount; i++)
         {
             tracks[i] = new track(i + 1, 10, 0);
         }
@@ -226,8 +227,8 @@ public:
         {
             lenght = 25;
         }
-        tracks = new track* [tracks_amount];
-        for (int i = 0; i < max_tracks_amount; i++)
+        tracks = new track * [max_tracks_amount];
+        for (int i = 0; i < tracks_amount; i++)
         {
             tracks[i] = new track(i + 1, 10, 0);
         }
@@ -239,13 +240,10 @@ public:
         tracks_amount = object.tracks_amount;
         max_depth = object.max_depth;
         lenght = object.lenght;
-        if (tracks_amount > 0)
+        tracks = new track * [tracks_amount];
+        for (int i = 0; i < tracks_amount; i++)
         {
-            tracks = new track * [tracks_amount];
-            for (int i = 0; i < tracks_amount; i++)
-            {
-                tracks[i] = new track(object.tracks[i]->get_track_number(), object.tracks[i]->get_people_amount(), object.tracks[i]->get_max_people_amount());
-            }
+            tracks[i] = new track(object.tracks[i]->get_track_number(), object.tracks[i]->get_people_amount(), object.tracks[i]->get_max_people_amount());
         }
     }
     ~swimming_pool()
@@ -527,8 +525,8 @@ public:
         name_sport_complex = "не определено";
         max_swimming_pools_amount = 5;
         swimming_pools_amount = 5;
-        swimming_pools = new swimming_pool* [swimming_pools_amount];
-        for (int i = 0; i < max_swimming_pools_amount; i++)
+        swimming_pools = new swimming_pool * [max_swimming_pools_amount];
+        for (int i = 0; i < swimming_pools_amount; i++)
         {
             swimming_pools[i] = new swimming_pool(i + 1, 5, 5, 5, 25);
         }
@@ -552,8 +550,8 @@ public:
         {
             swimming_pools_amount = 1;
         }
-        swimming_pools = new swimming_pool* [swimming_pools_amount];
-        for (int i = 0; i < max_swimming_pools_amount; i++)
+        swimming_pools = new swimming_pool * [max_swimming_pools_amount];
+        for (int i = 0; i < swimming_pools_amount; i++)
         {
             swimming_pools[i] = new swimming_pool(i + 1, 5, 5, 5, 25);
         }
@@ -741,6 +739,7 @@ public:
             if (swimming_pools[i]->get_swimming_pool_number() == _number_swimming_pool)
             {
                 swimming_pools[i]->output_track_peoples_ages(_number_track);
+                break;
             }
         }
     }
@@ -908,6 +907,7 @@ int main()
     SetConsoleOutputCP(1251);
     sport_complex a("Донбасс", 5, 5);
     a.output_sport_complex();
+    a.let_human_on_track(3, 2, 20);
     int cmd = 0, s_cmd = 0;
     do
     {
