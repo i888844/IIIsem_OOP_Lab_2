@@ -22,6 +22,10 @@ public:
         max_people_amount = 10;
         people_amount = 0;
         peoples_ages = new int [max_people_amount];
+        for (int i = 0; i < people_amount; i++)
+        {
+            peoples_ages[i] = 0;
+        }
     }
     track(int _track_number, int _max_people_amount, int _people_amount)
     {
@@ -371,7 +375,7 @@ public:
     }
     void output_track(int _track_number)
     {
-        for (int i = 0; i < tracks[i]->get_track_number(); i++)
+        for (int i = 0; i < get_tracks_amount(); i++)
         {
             if (tracks[i]->get_people_amount() == _track_number)
             {
@@ -383,7 +387,7 @@ public:
     }
     void output_track_peoples_ages(int _track_number)
     {
-        for (int i = 0; i < tracks[i]->get_track_number(); i++)
+        for (int i = 0; i < get_tracks_amount(); i++)
         {
             if (tracks[i]->get_people_amount() == _track_number)
             {
@@ -397,8 +401,8 @@ public:
     bool let_human_on_track(int _track_number, int _human_age)
     {
         bool method_result = false;
-        int current_index_track = 0, number_last_track = tracks[get_tracks_amount()]->get_track_number();
-        for (int i = 0; i < get_tracks_amount(); i++)
+        int current_index_track = 0, number_first_track = tracks[0]->get_track_number(),  number_last_track = tracks[get_tracks_amount() - 1]->get_track_number();
+        for (int i = 0; i < get_tracks_amount() - 1; i++)
         {
             if (tracks[i]->get_track_number() == _track_number)
             {
@@ -406,7 +410,7 @@ public:
                 break;
             }
         }
-        if ((_human_age <= 6 || _human_age >= 80) && (tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount()) && (_track_number == number_last_track || _track_number == 1))
+        if ((_human_age <= 6 || _human_age >= 80) && (tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount()) && (_track_number == number_last_track || _track_number == number_first_track))
         {
             tracks[current_index_track]->set_people_amount(tracks[current_index_track]->get_people_amount() + 1);
             tracks[current_index_track]->add_human_age(_human_age);
@@ -423,7 +427,7 @@ public:
     bool remove_human_from_track(int _track_number, int _index_human)
     {
         bool method_result = false;
-        for (int i = 0; i < get_tracks_amount(); i++)
+        for (int i = 0; i < get_tracks_amount() - 1; i++)
         {
             if (tracks[i]->get_track_number() == _track_number)
             {
@@ -439,7 +443,7 @@ public:
     bool remove_all_humans_from_track(int _track_number)
     {
         bool method_result = false;
-        for (int i = 0; i < get_tracks_amount(); i++)
+        for (int i = 0; i < get_tracks_amount() - 1; i++)
         {
             if (tracks[i]->get_track_number() == _track_number)
             {
@@ -482,7 +486,7 @@ public:
         bool method_result = false;
         if (get_tracks_amount() > 1)
         {
-            for (int i = 0; i < get_tracks_amount(); i++)
+            for (int i = 0; i < get_tracks_amount() - 1; i++)
             {
                 if (tracks[i]->get_track_number() == _track_number)
                 {
@@ -499,7 +503,7 @@ public:
     }
     void copy_constuct_track(int _number_track)
     {
-        for (int i = 0; i < get_tracks_amount(); i++)
+        for (int i = 0; i < get_tracks_amount() - 1; i++)
         {
             if (tracks[i]->get_track_number() == _number_track)
             {
@@ -906,8 +910,6 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     sport_complex a("Донбасс", 5, 5);
-    a.output_sport_complex();
-    a.let_human_on_track(3, 2, 20);
     int cmd = 0, s_cmd = 0;
     do
     {
