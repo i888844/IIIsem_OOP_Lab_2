@@ -74,10 +74,10 @@ public:
     {
         delete[]peoples_ages;
     }
-    int get_track_number() { return track_number; }
-    int get_max_people_amount() { return max_people_amount; }
-    int get_people_amount() { return people_amount; }
-    int* get_peoples_ages() { return peoples_ages; }
+    int get_track_number() const { return track_number; }
+    int get_max_people_amount() const { return max_people_amount; }
+    int get_people_amount() const { return people_amount; }
+    int* get_peoples_ages() const { return peoples_ages; }
     void set_track_number(int _settable_track_number)
     {
         if (_settable_track_number <= 0)
@@ -139,9 +139,9 @@ public:
     bool remove_human_age(int _index_human_age)
     {
         bool method_result = false;
-        if ((_index_human_age - 1) >= 0 && _index_human_age < get_people_amount())
+        if (_index_human_age >= 0 && _index_human_age < get_people_amount())
         {
-            for (int i = _index_human_age; i < get_people_amount() - 1; i++)
+            for (int i = _index_human_age; i < get_people_amount(); i++)
             {
                 peoples_ages[i] = peoples_ages[i + 1];
             }
@@ -261,12 +261,12 @@ public:
         }
         delete[]tracks;
     }
-    int get_swimming_pool_number() { return swimming_pool_number; }
-    int get_max_tracks_amount() { return max_tracks_amount; }
-    int get_tracks_amount() { return tracks_amount; }
-    double get_max_depth() { return max_depth; }
-    double get_lenght() { return lenght; }
-    int get_track_people_amount(int _number_track)
+    int get_swimming_pool_number() const { return swimming_pool_number; }
+    int get_max_tracks_amount() const { return max_tracks_amount; }
+    int get_tracks_amount() const { return tracks_amount; }
+    double get_max_depth() const { return max_depth; }
+    double get_lenght() const { return lenght; }
+    int get_track_people_amount(int _number_track) const
     {
         return (tracks[_number_track]->get_people_amount());
     }
@@ -412,13 +412,11 @@ public:
         }
         if ((_human_age <= 6 || _human_age >= 80) && (tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount()) && (_track_number == number_last_track || _track_number == number_first_track))
         {
-            tracks[current_index_track]->set_people_amount(tracks[current_index_track]->get_people_amount() + 1);
             tracks[current_index_track]->add_human_age(_human_age);
             method_result = true;
         }
         else if ((_human_age > 6 && _human_age < 80) && tracks[current_index_track]->get_people_amount() < tracks[current_index_track]->get_max_people_amount())
         {
-            tracks[current_index_track]->set_people_amount(tracks[current_index_track]->get_people_amount() + 1);
             tracks[current_index_track]->add_human_age(_human_age);
             method_result = true;
         }
@@ -579,10 +577,10 @@ public:
         }
         delete[]swimming_pools;
     }
-    string get_name_sport_complex() { return name_sport_complex; }
-    int get_max_swimming_pools_amount() { return max_swimming_pools_amount; }
-    int get_swimming_pools_amount() { return swimming_pools_amount; }
-    int get_track_people_amount(int _swimming_pool_number, int _number_track)
+    string get_name_sport_complex() const { return name_sport_complex; }
+    int get_max_swimming_pools_amount() const { return max_swimming_pools_amount; }
+    int get_swimming_pools_amount() const { return swimming_pools_amount; }
+    int get_track_people_amount(int _swimming_pool_number, int _number_track) const
     {
         return (swimming_pools[_swimming_pool_number]->get_track_people_amount(_number_track));
     }
@@ -708,6 +706,10 @@ public:
                     {
                         swimming_pools[i]->output_track(j);
                     }
+                }
+                else
+                {
+                    cout << "Дорожки отсутствуют." << endl;
                 }
                 break;
             }
@@ -1422,11 +1424,11 @@ int main()
                 index_human -= 1;
                 if (a.remove_human_from_track(number_swimming_pool, number_track, index_human))
                 {
-                    cout << "Человек №" << index_human << " успешно убран с дорожки №" << number_track << " бассейна №" << number_swimming_pool << " спортивного комплекса \"" << a.get_name_sport_complex() << "\"" << endl;
+                    cout << "Человек №" << index_human + 1 << " успешно убран с дорожки №" << number_track << " бассейна №" << number_swimming_pool << " спортивного комплекса \"" << a.get_name_sport_complex() << "\"" << endl;
                 }
                 else
                 {
-                    cout << "Не удалось убрать человека №" << index_human << " с дорожки №" << number_track << " бассейна №" << number_swimming_pool << " спортивного комплекса \"" << a.get_name_sport_complex() << "\"" << endl;
+                    cout << "Не удалось убрать человека №" << index_human + 1 << " с дорожки №" << number_track << " бассейна №" << number_swimming_pool << " спортивного комплекса \"" << a.get_name_sport_complex() << "\"" << endl;
                 }
                 break;
             }
