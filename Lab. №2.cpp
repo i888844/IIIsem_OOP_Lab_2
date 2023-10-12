@@ -685,6 +685,7 @@ public:
     {
         cout << "Спортивный комплекс \"" << name_sport_complex << "\"" << endl;
         cout << "Количество бассейнов: " << swimming_pools_amount << endl;
+        cout << "Максимальное количество бассейнов: " << max_swimming_pools_amount << endl;
         for (int i = 0; i < swimming_pools_amount; i++)
         {
             swimming_pools[i]->output_swimming_pool();
@@ -1090,7 +1091,7 @@ int main()
                                 cin >> swimming_pool_number;
                                 cout << "Введите новый номер бассейна: ";
                                 cin >> new_swimming_pool_number;
-                                // !
+                                a.set_swimming_pool_number(swimming_pool_number, new_swimming_pool_number);
                                 break;
                             }
                             case 2:
@@ -1100,7 +1101,7 @@ int main()
                                 cin >> swimming_pool_number;
                                 cout << "Введите новое максимальное количество дорожек: ";
                                 cin >> max_tracks_amount;
-                                // !
+                                a.set_max_tracks_amount(swimming_pool_number, max_tracks_amount);
                                 break;
                             }
                             case 3:
@@ -1110,7 +1111,7 @@ int main()
                                 cin >> swimming_pool_number;
                                 cout << "Введите новое количество дорожек: ";
                                 cin >> tracks_amount;
-                                // !
+                                a.set_tracks_amount(swimming_pool_number, tracks_amount);
                                 break;
                             }
                             case 4:
@@ -1120,7 +1121,7 @@ int main()
                                 cin >> swimming_pool_number;
                                 cout << "Введите новую максимальную глубину: ";
                                 cin >> max_depth;
-                                // !
+                                a.set_max_depth(swimming_pool_number, max_depth);
                                 break;
                             }
                             case 5:
@@ -1130,7 +1131,7 @@ int main()
                                 cin >> swimming_pool_number;
                                 cout << "Введите новую длину: ";
                                 cin >> lenght;
-                                // !
+                                a.set_lenght(swimming_pool_number, lenght);
                                 break;
                             }
                         }
@@ -1138,7 +1139,60 @@ int main()
                     }
                     case 3:
                     {
-                        // !
+                        cout << "1. Изменить номер дорожки" << endl;
+                        cout << "2. Изменить количество людей" << endl;
+                        cout << "3. Изменить максимальное количество людей" << endl;
+                        cout << "0. Назад" << endl;
+                        cout << "Номер действия: " << endl;
+                        cin >> s_cmd;
+                        while (s_cmd < 0 || cmd > 3)
+                        {
+                            cout << "[Ошибка]: введён неверный номер действия. Введите номер действия: " << endl;
+                            cin >> s_cmd;
+                        }
+                        switch (s_cmd)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                int swimming_pool_number = 0, track_number = 0, new_track_number = 0;
+                                cout << "Введите номер бассейна, в дрожке которого Вы хотите сменить номер" << endl;
+                                cin >> swimming_pool_number;
+                                cout << "Введите номер дорожки, которой Вы хотите сменить номер" << endl;
+                                cin >> track_number;
+                                cout << "Введите новый номер дорожки" << endl;
+                                cin >> new_track_number;
+                                a.set_track_number(swimming_pool_number, track_number, new_track_number);
+                                break;
+                            }
+                            case 2:
+                            {
+                                int swimming_pool_number = 0, track_number = 0, people_amount = 0;
+                                cout << "Введите номер бассейна, в дрожке которого Вы хотите сменить количество людей" << endl;
+                                cin >> swimming_pool_number;
+                                cout << "Введите номер дорожки, которой Вы хотите сменить количество людей" << endl;
+                                cin >> track_number;
+                                cout << "Введите количество людей" << endl;
+                                cin >> people_amount;
+                                a.set_people_amount(swimming_pool_number, track_number, people_amount);
+                                break;
+                            }
+                            case 3:
+                            {
+                                int swimming_pool_number = 0, track_number = 0, max_people_amount = 0;
+                                cout << "Введите номер бассейна, в дрожке которого Вы хотите сменить максимальное количество людей" << endl;
+                                cin >> swimming_pool_number;
+                                cout << "Введите номер дорожки, которой Вы хотите сменить максимальное количество людей" << endl;
+                                cin >> track_number;
+                                cout << "Введите максимальное количество людей" << endl;
+                                cin >> max_people_amount;
+                                a.set_max_people_amount(swimming_pool_number, track_number, max_people_amount);
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -1334,9 +1388,9 @@ int main()
                             }
                         }
                         break;
-                        break;
                     }
                 }
+                break;
             }
             case 4:
             {
